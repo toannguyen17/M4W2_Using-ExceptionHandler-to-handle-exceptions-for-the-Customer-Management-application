@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Province List</title>
+	<style>
+		table {
+			border: 1px solid #000;
+		}
+
+		th, td {
+			border: 1px dotted #555;
+		}
+	</style>
+</head>
+<body>
+<a href="/provinces/create">Create Province</a><br />
+<a href="/customers">Customer</a><br />
+<table>
+	<caption>Province List</caption>
+	<thead>
+	<tr>
+		<th>Id</th>
+		<th>Name</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr th:each="c : ${provinces}">
+		<td th:text="${c.id}"></td>
+		<td>
+			<a th:href="@{/provinces/{id}(id=${c.id})}" th:text="${c.name}"></a>
+		</td>
+	</tr>
+	</tbody>
+</table>
+<div>
+	<a th:if="${provinces.hasPrevious()}"
+	   th:href="@{'/provinces'(page=${provinces.number - 1}, size=${provinces.size}, s=${keyword})}">
+		Previous
+	</a>
+	[[${provinces.number + 1}]]/[[${provinces.totalPages}]]
+	<a th:if="${provinces.hasNext()}"
+	   th:href="@{'/provinces'(page=${provinces.number + 1}, size=${provinces.size}, s=${keyword})}">
+		Next
+	</a>
+</div>
+</body>
+</html>
